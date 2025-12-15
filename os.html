@@ -3,93 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova OS | Aviagen</title>
+    <title>Nova Ordem | Aviagen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style> body { font-family: 'Inter', sans-serif; } </style>
 </head>
-<body class="bg-gray-50 min-h-screen py-10 px-4">
+<body class="bg-gray-100 min-h-screen py-10 px-4 flex items-center justify-center">
 
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div class="bg-[#C8102E] px-8 py-6 flex justify-between items-center">
-            <h1 class="text-white text-2xl font-bold">Nova Ordem de Serviço</h1>
-            <a href="login.html" class="text-white text-sm opacity-80 hover:opacity-100">Sair</a>
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+        
+        <div class="bg-[#111827] px-8 py-6 flex justify-between items-center border-b border-gray-800">
+            <div class="flex items-center gap-4">
+                <a href="dashboard.html" class="text-gray-400 hover:text-white hover:bg-gray-800 p-2 rounded-full transition" title="Voltar ao Dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-white text-xl font-bold">Nova Ordem de Serviço</h1>
+                    <p class="text-gray-400 text-xs mt-1">Preencha os dados abaixo para registrar a ocorrência</p>
+                </div>
+            </div>
         </div>
 
         <form id="osForm" class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição do Problema</label>
-                <input type="text" id="description" placeholder="Ex: Motor da esteira 2 parou" required
-                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Descrição do Problema</label>
+                <input type="text" id="description" placeholder="Ex: Falha no motor da esteira principal" required
+                       class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none transition">
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Solicitante</label>
-                <input type="text" id="requester" placeholder="Nome de quem pediu"
-                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Solicitante</label>
+                <input type="text" id="requester" placeholder="Quem identificou?"
+                       class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none transition">
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Setor</label>
-                <input type="text" id="sector" placeholder="Ex: Produção, Caldeira..."
-                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Setor</label>
+                <input type="text" id="sector" placeholder="Ex: Produção, Expedição..."
+                       class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none transition">
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Técnico Responsável</label>
-                <input type="text" id="technician" placeholder="Nome do Técnico"
-                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Técnico Responsável</label>
+                <input type="text" id="technician" placeholder="Quem vai resolver?"
+                       class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none transition">
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Prioridade</label>
-                <select id="priority" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none bg-white">
-                    <option value="Baixa">🟢 Baixa</option>
-                    <option value="Média" selected>🟡 Média</option>
-                    <option value="Alta">🔴 Alta</option>
-                </select>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Prioridade</label>
+                <div class="relative">
+                    <select id="priority" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none appearance-none cursor-pointer">
+                        <option value="Baixa">🟢 Baixa</option>
+                        <option value="Média" selected>🟡 Média</option>
+                        <option value="Alta">🔴 Alta</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                </div>
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Prazo Limite</label>
-                <input type="date" id="deadline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Prazo Limite</label>
+                <input type="date" id="deadline" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none text-gray-600">
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Status Atual</label>
-                <select id="status" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none bg-white">
-                    <option value="Aberta">Aberta</option>
-                    <option value="Em andamento">Em andamento</option>
-                    <option value="Finalizada">Finalizada</option>
-                </select>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status Atual</label>
+                <div class="relative">
+                    <select id="status" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none appearance-none cursor-pointer">
+                        <option value="Aberta">Aberta</option>
+                        <option value="Em andamento">Em andamento</option>
+                        <option value="Finalizada">Finalizada</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                </div>
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Observações Técnicas (Opcional)</label>
-                <textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none"></textarea>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Observações Técnicas</label>
+                <textarea id="notes" rows="3" placeholder="Detalhes adicionais..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#C8102E] focus:border-transparent outline-none transition"></textarea>
             </div>
 
-            <div class="md:col-span-2 pt-4">
-                <button type="submit" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-lg shadow-lg transition transform hover:scale-[1.01]">
+            <div class="md:col-span-2 pt-4 flex gap-4">
+                <a href="dashboard.html" class="w-1/3 text-center py-4 rounded-lg border border-gray-300 text-gray-600 font-bold hover:bg-gray-50 transition">
+                    Cancelar
+                </a>
+                <button type="submit" class="w-2/3 bg-[#C8102E] hover:bg-[#a00d25] text-white font-bold py-4 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-[1.01]">
                     Salvar Ordem de Serviço
                 </button>
             </div>
             
-            <div id="message" class="md:col-span-2 text-center font-bold hidden"></div>
+            <div id="message" class="md:col-span-2 text-center font-bold hidden rounded-lg"></div>
         </form>
     </div>
 
     <script>
-        // 👇👇👇 URL DO RENDER AQUI 👇👇👇
         const backend = 'https://aviagen-backend-1.onrender.com'
         const token = localStorage.getItem('token')
 
-        // Bloqueio simples se não tiver logado
         if(!token) window.location.href = 'login.html'
 
         document.getElementById('osForm').addEventListener('submit', async e => {
             e.preventDefault()
+            const btn = e.target.querySelector('button[type="submit"]')
+            const originalText = btn.innerText
+            
+            // Loading State no botão
+            btn.innerText = "Salvando..."
+            btn.disabled = true
+            btn.classList.add('opacity-75')
             
             const data = {
                 description: document.getElementById('description').value,
@@ -105,10 +133,7 @@
             try {
                 const res = await fetch(`${backend}/os`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type':'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
+                    headers: { 'Content-Type':'application/json', 'Authorization': 'Bearer ' + token },
                     body: JSON.stringify(data)
                 })
 
@@ -116,15 +141,26 @@
                 msg.classList.remove('hidden')
 
                 if(res.ok){
-                    msg.textContent = '✅ Sucesso! Ordem de Serviço criada.'
-                    msg.className = 'md:col-span-2 text-center font-bold text-green-600 p-4 bg-green-50 rounded-lg'
+                    msg.innerHTML = `
+                        <div class="flex flex-col items-center">
+                            <span class="text-2xl mb-1">✅</span>
+                            <span class="text-green-700">Ordem criada com sucesso!</span>
+                            <a href="dashboard.html" class="text-sm text-green-600 underline mt-2 hover:text-green-800">Voltar para Dashboard</a>
+                        </div>`
+                    msg.className = 'md:col-span-2 p-6 bg-green-50 border border-green-100 rounded-xl'
                     document.getElementById('osForm').reset()
                 } else {
-                    msg.textContent = '❌ Erro ao salvar. Verifique sua conexão.'
-                    msg.className = 'md:col-span-2 text-center font-bold text-red-600 p-4 bg-red-50 rounded-lg'
+                    throw new Error()
                 }
             } catch (error) {
-                alert('Erro de conexão.')
+                const msg = document.getElementById('message')
+                msg.classList.remove('hidden')
+                msg.textContent = '❌ Erro ao salvar. Verifique sua conexão.'
+                msg.className = 'md:col-span-2 text-center font-bold text-red-600 p-4 bg-red-50 rounded-lg'
+            } finally {
+                btn.innerText = originalText
+                btn.disabled = false
+                btn.classList.remove('opacity-75')
             }
         })
     </script>
