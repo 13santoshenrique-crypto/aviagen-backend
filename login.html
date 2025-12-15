@@ -33,7 +33,7 @@
     </div>
 
     <script>
-        // 👇👇👇 SUA URL DO RENDER MANTIDA AQUI 👇👇👇
+        // 👇👇👇 URL DO RENDER MANTIDA 👇👇👇
         const backend = 'https://aviagen-backend-1.onrender.com' 
         
         document.getElementById('loginForm').addEventListener('submit', async e => {
@@ -56,23 +56,20 @@
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('role', data.role)
                     
-                    // LÓGICA CORRIGIDA AQUI:
-                    // Admin OU Gestor -> Vão para o Dashboard
+                    // LÓGICA: Admin e Gestor vão para Dashboard. Técnico vai trabalhar.
                     if(data.role === 'admin' || data.role === 'gestor') {
                         location.href = 'dashboard.html'
-                    } 
-                    // Técnico -> Vai para criar OS
-                    else {
+                    } else {
                         location.href = 'os.html'
                     }
 
                 } else {
-                    alert('Usuário não encontrado. Tente: admin, gestor ou tecnico')
+                    alert('Usuário inválido.')
                     btn.innerHTML = 'Entrar no Sistema'
                     btn.disabled = false
                 }
             } catch (error) {
-                alert('Erro de conexão com o servidor!')
+                alert('Erro de conexão.')
                 btn.innerHTML = 'Entrar no Sistema'
                 btn.disabled = false
             }
