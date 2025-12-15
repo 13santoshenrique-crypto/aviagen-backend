@@ -33,7 +33,7 @@
     </div>
 
     <script>
-        // 👇👇👇 COLOQUE AQUI SUA URL DO RENDER 👇👇👇
+        // 👇👇👇 SUA URL DO RENDER MANTIDA AQUI 👇👇👇
         const backend = 'https://aviagen-backend-1.onrender.com' 
         
         document.getElementById('loginForm').addEventListener('submit', async e => {
@@ -56,8 +56,16 @@
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('role', data.role)
                     
-                    if(data.role === 'admin') location.href='dashboard.html'
-                    else location.href='os.html'
+                    // LÓGICA CORRIGIDA AQUI:
+                    // Admin OU Gestor -> Vão para o Dashboard
+                    if(data.role === 'admin' || data.role === 'gestor') {
+                        location.href = 'dashboard.html'
+                    } 
+                    // Técnico -> Vai para criar OS
+                    else {
+                        location.href = 'os.html'
+                    }
+
                 } else {
                     alert('Usuário não encontrado. Tente: admin, gestor ou tecnico')
                     btn.innerHTML = 'Entrar no Sistema'
