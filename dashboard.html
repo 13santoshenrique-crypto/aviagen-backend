@@ -12,7 +12,6 @@
 <div class="max-w-6xl mx-auto p-8">
   <h1 class="text-3xl font-bold text-red-600 mb-6 text-center">Dashboard Executivo - CIA Aviagen</h1>
 
-  <!-- Cards principais -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white p-6 rounded-xl shadow-lg text-center">
       <h2 class="text-xl font-bold mb-2">OS Abertas</h2>
@@ -28,14 +27,13 @@
     </div>
   </div>
 
-  <!-- Gráfico de OS abertas x finalizadas -->
   <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
     <canvas id="osChart"></canvas>
   </div>
 </div>
 
 <script>
-const backend = 'COLE_AQUI_SUA_URL_DO_BACKEND'  // ex: https://aviagen-backend.onrender.com
+const backend = 'https://13santoshenrique-crypto.github.io/aviagen-backend/'
 const token = localStorage.getItem('token')
 
 if(!token) {
@@ -43,10 +41,8 @@ if(!token) {
   location.href='login.html'
 }
 
-// Função para atualizar dashboard
 async function updateDashboard() {
   try {
-    // Dashboard métricas
     const res = await fetch(`${backend}/dashboard`, {
       headers: { 'Authorization': 'Bearer ' + token }
     })
@@ -54,7 +50,6 @@ async function updateDashboard() {
     document.getElementById('openCount').textContent = data.abertas
     document.getElementById('closedCount').textContent = data.finalizadas
 
-    // IA Executiva (apenas admin)
     const role = localStorage.getItem('role')
     if(role === 'admin'){
       const iaRes = await fetch(`${backend}/ia/resumo`, {
@@ -66,7 +61,6 @@ async function updateDashboard() {
       document.getElementById('iaResumo').textContent = 'Acesso restrito ao admin.'
     }
 
-    // Gráfico OS abertas x finalizadas
     const ctx = document.getElementById('osChart').getContext('2d')
     new Chart(ctx, {
       type: 'doughnut',
@@ -93,7 +87,6 @@ async function updateDashboard() {
   }
 }
 
-// Atualiza ao carregar
 updateDashboard()
 </script>
 
