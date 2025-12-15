@@ -1,84 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ordem de Serviço - CIA Aviagen</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova OS | Aviagen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-50 min-h-screen py-10 px-4">
 
-<div class="max-w-4xl mx-auto p-8">
-  <h1 class="text-3xl font-bold text-red-600 mb-6 text-center">Nova Ordem de Serviço</h1>
-  
-  <form id="osForm" class="bg-white p-8 rounded-xl shadow-lg grid grid-cols-1 gap-4">
-    <input type="text" id="requester" placeholder="Solicitante" class="border p-2 rounded w-full">
-    <input type="text" id="sector" placeholder="Setor" class="border p-2 rounded w-full">
-    <input type="text" id="technician" placeholder="Técnico" class="border p-2 rounded w-full">
-    
-    <select id="priority" class="border p-2 rounded w-full">
-      <option value="">Prioridade</option>
-      <option value="Baixa">Baixa</option>
-      <option value="Média">Média</option>
-      <option value="Alta">Alta</option>
-    </select>
-    
-    <input type="date" id="deadline" class="border p-2 rounded w-full">
-    
-    <select id="status" class="border p-2 rounded w-full">
-      <option value="">Status</option>
-      <option value="Aberta">Aberta</option>
-      <option value="Em andamento">Em andamento</option>
-      <option value="Finalizada">Finalizada</option>
-    </select>
-    
-    <textarea id="description" placeholder="Descrição" class="border p-2 rounded w-full"></textarea>
-    <textarea id="notes" placeholder="Observações (opcional)" class="border p-2 rounded w-full"></textarea>
-    
-    <button type="submit" class="bg-red-600 text-white p-3 rounded font-bold hover:bg-red-700">Salvar OS</button>
-  </form>
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-[#C8102E] px-8 py-6 flex justify-between items-center">
+            <h1 class="text-white text-2xl font-bold">Nova Ordem de Serviço</h1>
+            <a href="login.html" class="text-white text-sm opacity-80 hover:opacity-100">Sair</a>
+        </div>
 
-  <div id="message" class="mt-4 text-center font-semibold"></div>
-</div>
+        <form id="osForm" class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição do Problema</label>
+                <input type="text" id="description" placeholder="Ex: Motor da esteira 2 parou" required
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+            </div>
 
-<script>
-const backend = 'https://aviagen-backend-1.onrender.com'
-const token = localStorage.getItem('token')
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Solicitante</label>
+                <input type="text" id="requester" placeholder="Nome de quem pediu"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+            </div>
 
-document.getElementById('osForm').addEventListener('submit', async e => {
-  e.preventDefault()
-  
-  const data = {
-    requester: document.getElementById('requester').value,
-    sector: document.getElementById('sector').value,
-    technician: document.getElementById('technician').value,
-    priority: document.getElementById('priority').value,
-    deadline: document.getElementById('deadline').value,
-    status: document.getElementById('status').value,
-    description: document.getElementById('description').value,
-    notes: document.getElementById('notes').value
-  }
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Setor</label>
+                <input type="text" id="sector" placeholder="Ex: Produção, Caldeira..."
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+            </div>
 
-  const res = await fetch(`${backend}/os`, {
-    method: 'POST',
-    headers: {
-      'Content-Type':'application/json',
-      'Authorization': 'Bearer ' + token
-    },
-    body: JSON.stringify(data)
-  })
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Técnico Responsável</label>
+                <input type="text" id="technician" placeholder="Nome do Técnico"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+            </div>
 
-  const msg = document.getElementById('message')
-  if(res.ok){
-    msg.textContent = 'Ordem de Serviço criada com sucesso!'
-    msg.className = 'mt-4 text-green-600 font-semibold text-center'
-    document.getElementById('osForm').reset()
-  } else {
-    msg.textContent = 'Erro ao criar OS. Verifique os campos ou token.'
-    msg.className = 'mt-4 text-red-600 font-semibold text-center'
-  }
-})
-</script>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Prioridade</label>
+                <select id="priority" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none bg-white">
+                    <option value="Baixa">🟢 Baixa</option>
+                    <option value="Média" selected>🟡 Média</option>
+                    <option value="Alta">🔴 Alta</option>
+                </select>
+            </div>
 
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Prazo Limite</label>
+                <input type="date" id="deadline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Status Atual</label>
+                <select id="status" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none bg-white">
+                    <option value="Aberta">Aberta</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Finalizada">Finalizada</option>
+                </select>
+            </div>
+
+            <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Observações Técnicas (Opcional)</label>
+                <textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C8102E] outline-none"></textarea>
+            </div>
+
+            <div class="md:col-span-2 pt-4">
+                <button type="submit" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-lg shadow-lg transition transform hover:scale-[1.01]">
+                    Salvar Ordem de Serviço
+                </button>
+            </div>
+            
+            <div id="message" class="md:col-span-2 text-center font-bold hidden"></div>
+        </form>
+    </div>
+
+    <script>
+        // 👇👇👇 URL DO RENDER AQUI 👇👇👇
+        const backend = 'https://aviagen-backend.onrender.com'
+        const token = localStorage.getItem('token')
+
+        // Bloqueio simples se não tiver logado
+        if(!token) window.location.href = 'login.html'
+
+        document.getElementById('osForm').addEventListener('submit', async e => {
+            e.preventDefault()
+            
+            const data = {
+                description: document.getElementById('description').value,
+                requester: document.getElementById('requester').value,
+                sector: document.getElementById('sector').value,
+                technician: document.getElementById('technician').value,
+                priority: document.getElementById('priority').value,
+                deadline: document.getElementById('deadline').value,
+                status: document.getElementById('status').value,
+                notes: document.getElementById('notes').value
+            }
+
+            try {
+                const res = await fetch(`${backend}/os`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                })
+
+                const msg = document.getElementById('message')
+                msg.classList.remove('hidden')
+
+                if(res.ok){
+                    msg.textContent = '✅ Sucesso! Ordem de Serviço criada.'
+                    msg.className = 'md:col-span-2 text-center font-bold text-green-600 p-4 bg-green-50 rounded-lg'
+                    document.getElementById('osForm').reset()
+                } else {
+                    msg.textContent = '❌ Erro ao salvar. Verifique sua conexão.'
+                    msg.className = 'md:col-span-2 text-center font-bold text-red-600 p-4 bg-red-50 rounded-lg'
+                }
+            } catch (error) {
+                alert('Erro de conexão.')
+            }
+        })
+    </script>
 </body>
 </html>
