@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordem de Serviço - CIA Aviagen</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<div class="max-w-4xl mx-auto p-8">
+  <h1 class="text-3xl font-bold text-red-600 mb-6 text-center">Nova Ordem de Serviço</h1>
+  
+  <form id="osForm" class="bg-white p-8 rounded-xl shadow-lg grid grid-cols-1 gap-4">
+    <input type="text" id="requester" placeholder="Solicitante" class="border p-2 rounded w-full">
+    <input type="text" id="sector" placeholder="Setor" class="border p-2 rounded w-full">
+    <input type="text" id="technician" placeholder="Técnico" class="border p-2 rounded w-full">
+    
+    <select id="priority" class="border p-2 rounded w-full">
+      <option value="">Prioridade</option>
+      <option value="Baixa">Baixa</option>
+      <option value="Média">Média</option>
+      <option value="Alta">Alta</option>
+    </select>
+    
+    <input type="date" id="deadline" class="border p-2 rounded w-full">
+    
+    <select id="status" class="border p-2 rounded w-full">
+      <option value="">Status</option>
+      <option value="Aberta">Aberta</option>
+      <option value="Em andamento">Em andamento</option>
+      <option value="Finalizada">Finalizada</option>
+    </select>
+    
+    <textarea id="description" placeholder="Descrição" class="border p-2 rounded w-full"></textarea>
+    <textarea id="notes" placeholder="Observações (opcional)" class="border p-2 rounded w-full"></textarea>
+    
+    <button type="submit" class="bg-red-600 text-white p-3 rounded font-bold hover:bg-red-700">Salvar OS</button>
+  </form>
+
+  <div id="message" class="mt-4 text-center font-semibold"></div>
+</div>
+
+<script>
+const backend = 'COLE_AQUI_SUA_URL_DO_BACKEND'  // ex: https://aviagen-backend.onrender.com
+const token = localStorage.getItem('token')
+
+document.getElementById('osForm').addEventListener('submit', async e => {
+  e.preventDefault()
+  
+  const data = {
+    requester: document.getElementById('requester').value,
+    sector: document.getElementById('sector').value,
+    technician: document.getElementById('technician').value,
+    priority: document.getElementById('priority').value,
+    deadline: document.getElementById('deadline').value,
+    status: document.getElementById('status').value,
+    description: document.getElementById('description').value,
+    notes: document.getElementById('notes').value
+  }
+
+  const res = await fetch(`${backend}/os`, {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  })
+
+  const msg = document.getElementById('message')
+  if(res.ok){
+    msg.textContent = 'Ordem de Serviço criada com sucesso!'
+    msg.className = 'mt-4 text-green-600 font-semibold text-center'
+    document.getElementById('osForm').reset()
+  } else {
+    msg.textContent = 'Erro ao criar OS. Verifique os campos ou token.'
+    msg.className = 'mt-4 text-red-600 font-semibold text-center'
+  }
+})
+</script>
+
+</body>
+</html>
